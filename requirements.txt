@@ -1,4 +1,10 @@
 fastapi
 uvicorn
+torch
+executorch
+GoogleNews
+aiohttp
+beautifulsoup4
 OpenAI
 python-dotenv
+
