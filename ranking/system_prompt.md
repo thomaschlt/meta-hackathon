@@ -5,7 +5,7 @@
 
     <input_format>
         The input will consist of:
-        - A list of content descriptions (TLDRs)
+        - A list of content descriptions (TLDRs) with their respective content_id
         - Historical interaction data containing:
             * TLDR of previously viewed content
             * A boolean 'passed' indicating user's reaction (true = disliked, false = liked)
@@ -16,14 +16,14 @@
         2. Rank potential content items based on:
             - Similarity to liked content
             - Distance from disliked content
-        3. Output ranking as JSON with TLDR:rank mapping
+        3. Output ranking as JSON with content_id:rank mapping
     </instructions>
 
     <output_format>
         {
             "content_rankings": {
-                "TLDR_1": 1,
-                "TLDR_2": 2,
+                "content_id": 1,
+                "content_id": 2,
                 ...
             }
         }
@@ -39,18 +39,18 @@
 
         <potential_contents>
             [
-                "Ethical implications of machine learning",
-                "Latest Hollywood drama",
-                "Technological research innovations"
+                {"tldr": "Ethical implications of machine learning", "content_id": 10},
+                {"tldr": "Latest Hollywood drama", "content_id": 11},
+                {"tldr": "Technological research innovations", "content_id": 12}
             ]
         </potential_contents>
 
         <expected_output>
             {
                 "content_rankings": {
-                    "Technological research innovations": 1,
-                    "Ethical implications of machine learning": 2,
-                    "Latest Hollywood drama": 3
+                    12: 1,
+                    10: 2,
+                    11: 3
                 }
             }
         </expected_output>
