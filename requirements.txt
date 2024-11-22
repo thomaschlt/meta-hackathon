@@ -2,4 +2,6 @@ fastapi
 uvicorn
 torch
 executorch
-crawl4ai
+GoogleNews
+aiohttp
+beautifulsoup4
