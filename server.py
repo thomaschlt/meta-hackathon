@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
 
-from .scraper.get_updated_news import get_update_news
+from scraper.get_updated_news import get_update_news
 
 app = FastAPI()
 
