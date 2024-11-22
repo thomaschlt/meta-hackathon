@@ -4,7 +4,19 @@ import torch
 from executorch import load_model
 from pydantic import BaseModel
 
+from ranking import ranking_service
+
 app = FastAPI()
+
+example_to_classify_content = [
+    {"tldr": "Ethical implications of machine learning", "content_id": 10},
+    {"tldr": "Latest Hollywood drama", "content_id": 11},
+    {"tldr": "Technological research innovations", "content_id": 12},
+]
+example_classified_content = [
+    {"tldr": "AI ethics in technology", "passed": True},
+    {"tldr": "Celebrity gossip", "passed": False},
+]
 
 
 class QueryInput(BaseModel):
@@ -33,9 +45,16 @@ def load_executorch_model(path_model: str):
     return model
 
 
-@app.get("/get_news")
-def get_news():
-    pass
+@app.get("/get_content")
+def get_content():
+    return example_to_classify_content
+
+
+@app.get("/classify_content")
+def classify_content(to_classify_content, classified_content):
+    return ranking_service.classify_content(
+        example_to_classify_content, example_classified_content
+    )
 
 
 @app.post("/generate")
