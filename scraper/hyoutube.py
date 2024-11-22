@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 class YouTubeFeedFetcher:
-    def __init__(self, client_secrets_file="/credentials/david_youtube_app_secrets.json", token_file="scraper/token.pickle"):
+    def __init__(self, client_secrets_file="credentials/david_youtube_app_secrets.json", token_file="scraper/token.pickle"):
         self.SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
         self.API_SERVICE_NAME = 'youtube'
         self.API_VERSION = 'v3'
