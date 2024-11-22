@@ -2,3 +2,4 @@ env_nopty/
 __pycache__/
 .env
 nopty_venv/
+env_metha_hackathon
