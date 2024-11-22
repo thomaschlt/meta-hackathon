@@ -1,5 +1,6 @@
 from scraper.hgooglenews import get_google_news
 from scraper.hhackernews import search_hackernews_sync
+from scraper.hyoutube import get_youtube_subscription_videos
 import json
 
 def get_update_news():
@@ -8,6 +9,7 @@ def get_update_news():
     for topic in interest:
         google_news = get_google_news(topic)
         hackernews = search_hackernews_sync(topic)
-        news_data= news_data+google_news + hackernews
+        youtube_feed = get_youtube_subscription_videos()
+        news_data= news_data+google_news + hackernews +youtube_feed
     return json.dumps({"news_list" : news_data})
 
