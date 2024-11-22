@@ -1,7 +1,5 @@
 fastapi
 uvicorn
-torch
-executorch
 GoogleNews
 aiohttp
 beautifulsoup4
