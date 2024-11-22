@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
 
-from ranking import ranking_service
+from .scraper.get_updated_news import get_update_news
 
 app = FastAPI()
 
@@ -28,14 +28,7 @@ def read_root():
 
 @app.get("/content")
 def get_content():
-    return example_to_classify_content
-
-
-@app.get("/classify_content")
-def classify_content():
-    return ranking_service.classify_content(
-        example_to_classify_content, example_classified_content
-    )
+    return get_update_news()
 
 
 if __name__ == "__main__":
