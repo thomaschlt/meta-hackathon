@@ -26,7 +26,7 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/get_content")
+@app.get("/content")
 def get_content():
     return example_to_classify_content
 
