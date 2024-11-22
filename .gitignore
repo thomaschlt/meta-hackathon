@@ -1,1 +1,4 @@
 env_nopty/
+__pycache__/
+.env
+nopty_venv/

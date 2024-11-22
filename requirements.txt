@@ -5,3 +5,6 @@ executorch
 GoogleNews
 aiohttp
 beautifulsoup4
+OpenAI
+python-dotenv
+
