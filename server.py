@@ -32,7 +32,7 @@ def get_content():
 
 
 @app.get("/classify_content")
-def classify_content(to_classify_content, classified_content):
+def classify_content():
     return ranking_service.classify_content(
         example_to_classify_content, example_classified_content
     )

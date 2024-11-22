@@ -1,23 +1,9 @@
-from fastapi import Path
+from pathlib import Path
+from typing import List
 from openai import OpenAI
+from pydantic import BaseModel
 
 from contants import OPENAI_API_KEY
-
-json_schema = {
-    "name": "Content ranker",
-    "schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "required": ["content_rankings"],
-    "properties": {
-        "content_rankings": {
-            "type": "object",
-            "additionalProperties": {"type": "integer", "minimum": 1},
-            "minProperties": 1,
-            "propertyNames": {"anyOf": [{"type": "integer"}, {"type": "integer"}]},
-        }
-    },
-    "additionalProperties": False,
-}
 
 
 def classify_content(
@@ -34,15 +20,23 @@ def classify_content(
     Returns:
     - list[dict[str, str | bool]]: List of classified content.
     """
+
+    class ContentRanking(BaseModel):
+        id: int
+        ranking: int
+
+    class ClassifiedContent(BaseModel):
+        content_rankings: List[ContentRanking]
+
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
-    system_prompt = Path("system_prompt.md").read_text()
+    system_prompt = Path("ranking/system_prompt.md").read_text()
 
     def prompt_for_classification(to_classify_content, classified_content) -> str:
         return f"Please classify this content. The content to classify is {to_classify_content}. The classified content is: {classified_content}."
 
-    response = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
+    response = openai_client.beta.chat.completions.parse(
+        model="gpt-4o-2024-08-06",
         messages=[
             {"role": "system", "content": system_prompt},
             {
@@ -52,8 +46,8 @@ def classify_content(
                 ),
             },
         ],
-        response_format={"type": "json_schema", "schema": json_schema},
+        response_format=ClassifiedContent,
     )
-    classified_results = response.choices[0].message.content
+    classified_results = response.choices[0].message.parsed
 
     return classified_results
